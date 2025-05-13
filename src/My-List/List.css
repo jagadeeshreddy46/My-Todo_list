@@ -1,0 +1,222 @@
+/* General Body Styling */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #ff9a8b, #fad0c4); /* Soft pastel gradient */
+  margin: 0;
+  padding: 40px 0; /* Allow for scrolling */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Main Container with Glass Effect */
+.todo-container {
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  border-radius: 20px;
+  width:50vw;
+  max-width: 1400px;
+  min-height: 600px;
+  padding: 30px 60px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px); /* Frosted glass blur effect */
+  -webkit-backdrop-filter: blur(15px); /* Safari support for frosted glass */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for the frosted glass */
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* Gradient Overlay for the Glass Effect */
+.todo-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 126, 95, 0.5), rgba(255, 180, 123, 0.5)); /* Gradient overlay */
+  border-radius: 20px;
+  z-index: -1; /* Behind the content */
+}
+
+/* Header Styling */
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.todo-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+  z-index: 1; /* Make sure text stays above the background */
+}
+
+/* Logout Button */
+.logout-btn {
+  background: linear-gradient(45deg, #FF7E5F, #feb47b);
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(45deg, #feb47b, #FF7E5F);
+  transform: scale(1.05);
+}
+
+/* Task Form Styling */
+.task-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s;
+  background-color: #f9f9f9;
+}
+
+.task-form input:focus {
+  border-color: #FF7E5F;
+  box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
+  background-color: #fff;
+}
+
+.task-form button {
+  background: linear-gradient(45deg, #FF7E5F, #feb47b);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.task-form button:hover {
+  background: linear-gradient(45deg, #feb47b, #FF7E5F);
+}
+
+/* Colored Spinner */
+.spinner {
+  border: 4px solid transparent;
+  border-top: 4px solid #FF7E5F;
+  border-right: 4px solid #FEB47B;
+  border-bottom: 4px solid #F39C12;
+  border-left: 4px solid #3498DB;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    border-top-color: #FF7E5F;
+    border-right-color: #FEB47B;
+    border-bottom-color: #F39C12;
+    border-left-color: #3498DB;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Task List Styling */
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.task-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.task-item span {
+  flex: 1;
+  font-size: 1.1rem;
+  color: #333;
+}
+/* Styling for the Save Task Button */
+.save-edit-btn {
+  background: linear-gradient(45deg, #FF7E5F, #feb47b); /* Gradient background */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s; /* Smooth transitions */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.save-edit-btn:hover {
+  background: linear-gradient(45deg, #feb47b, #FF7E5F); /* Reverse gradient on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.save-edit-btn:active {
+  background: linear-gradient(45deg, #FF7E5F, #feb47b); /* Keep the gradient on active state */
+  transform: scale(1); /* Return to normal size on click */
+}
+
+.save-edit-btn:focus {
+  outline: none; /* Remove the default outline */
+  box-shadow: 0 0 5px rgba(255, 126, 95, 0.8); /* Highlight on focus */
+}
+
+/* Edit and Delete Buttons */
+.edit-btn,
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 6px;
+  border-radius: 50%;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.edit-btn { color: #3498db; }
+.delete-btn { color: #e74c3c; }
+.edit-btn:hover { color: #2980b9; transform: scale(1.1); }
+.delete-btn:hover { color: #c0392b; transform: scale(1.1); }
+
+/* Task Item Gradient Colors */
+.task-blue { background: linear-gradient(135deg, #cfe8fc, #a2c2e0); }
+.task-orange { background: linear-gradient(135deg, #fbd0a1, #f1a1b6); }
+.task-purple { background: linear-gradient(135deg, #e5b9f1, #d4a1e8); }
+.task-pink { background: linear-gradient(135deg, #f7c8d7, #ec8fa0); }

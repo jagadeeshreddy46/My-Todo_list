@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import Login from "./Todo/Login";
-import Todo from "./Todo/Todo";
+import React, { useState } from 'react';
+import Login from './My-List/Login';  // Correct path
+import Todo from './My-List/Todo';  
+import './App.css'
+  // Correct path
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,7 +15,7 @@ function App() {
       <div style={{ position: 'absolute', top: 20, right: 20 }}>
         {isLoggedIn && (
           <button className="logout-btn" onClick={handleLogout}>
-            <i className="fas fa-sign-out-alt"></i> Logout
+             <i className="fas fa-sign-out-alt"></i> Logout
           </button>
         )}
       </div>

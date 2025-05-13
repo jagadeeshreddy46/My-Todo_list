@@ -1,0 +1,16 @@
+/* Logout Button with Gradient */
+.logout-btn {
+  background: linear-gradient(45deg, #ff6f61, #ff9a8b); /* Gradient effect */
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(45deg, #ff9a8b, #ff6f61); /* Inverted gradient on hover */
+  transform: scale(1.05); /* Slight scale effect when hovered */
+}
