@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Login from './My-List/Login';  // Correct path
-import Todo from './My-List/Todo';  
-import './App.css'
-  // Correct path
+import Todo from './My-List/Todo';    // Correct path
+import './App.css';                  // Correct path
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,14 +11,16 @@ function App() {
 
   return (
     <div className="App">
+      {/* Logout Button at the top-right */}
       <div style={{ position: 'absolute', top: 20, right: 20 }}>
         {isLoggedIn && (
           <button className="logout-btn" onClick={handleLogout}>
-             <i className="fas fa-sign-out-alt"></i> Logout
+            <i className="fas fa-sign-out-alt"></i> Logout
           </button>
         )}
       </div>
 
+      {/* Conditional Rendering of Login or Todo */}
       {!isLoggedIn ? (
         <Login onLogin={handleLogin} />
       ) : (

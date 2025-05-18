@@ -5,67 +5,58 @@ function Todo({ onLogout }) {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [editingTaskId, setEditingTaskId] = useState(null); // Track which task is being edited
-  const [editedTask, setEditedTask] = useState(''); // For holding the new task text during editing
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editedTask, setEditedTask] = useState('');
 
-  // Load tasks from localStorage when component mounts
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    setTasks(savedTasks); // Load tasks only once on initial load
+    setTasks(savedTasks);
   }, []);
 
-  // Save tasks to localStorage whenever tasks change
   useEffect(() => {
-    if (tasks.length > 0) {
-      localStorage.setItem('tasks', JSON.stringify(tasks)); // Update localStorage whenever tasks change
-    }
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  // Handle adding a new task
   const handleAddTask = () => {
     if (task.trim()) {
-      setIsLoading(true);  // Show the spinner while adding task
-
+      setIsLoading(true);
       const newTask = {
         id: Date.now(),
         text: task,
         colorClass: getRandomColorClass(),
+        completed: false
       };
-
       setTimeout(() => {
         setTasks(prevTasks => [...prevTasks, newTask]);
-        setTask(''); // Clear the input field
-        setIsLoading(false); // Hide the spinner
-      }, 500); // Simulate loading time
+        setTask('');
+        setIsLoading(false);
+      }, 500);
     }
   };
 
-  // Handle deleting a task
   const handleDelete = (id) => {
-    const updatedTasks = tasks.filter(task => task.id !== id);
-    setTasks(updatedTasks); // Update tasks state after deletion
+    setTasks(tasks.filter(task => task.id !== id));
   };
 
-  // Handle editing a task
   const handleEdit = (id, currentText) => {
-    setEditingTaskId(id);  // Set the task ID being edited
-    setEditedTask(currentText);  // Pre-fill the task's current text in the input field
+    setEditingTaskId(id);
+    setEditedTask(currentText);
   };
 
-  // Save edited task
   const handleSaveEdit = () => {
-    if (editedTask.trim()) {
-      setTasks(prevTasks =>
-        prevTasks.map(task =>
-          task.id === editingTaskId ? { ...task, text: editedTask } : task
-        )
-      );
-      setEditingTaskId(null);  // Reset editing mode
-      setEditedTask(''); // Clear the edited task input
-    }
+    setTasks(tasks.map(task =>
+      task.id === editingTaskId ? { ...task, text: editedTask } : task
+    ));
+    setEditingTaskId(null);
+    setEditedTask('');
   };
 
-  // Generate random color class for the task item
+  const handleComplete = (id) => {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
+
   const getRandomColorClass = () => {
     const colors = ['task-blue', 'task-orange', 'task-purple', 'task-pink'];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -73,60 +64,38 @@ function Todo({ onLogout }) {
 
   return (
     <div className="todo-container">
-      <div className="todo-header">
-        <h1>My Tasks</h1>
-      </div>
-
-      {/* Task Input and Add Button */}
+      <h1>What's the Plan for Today?</h1>
       <div className="task-form">
         <input
           type="text"
-          placeholder="Enter a task..."
+          placeholder="Add a task...."
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <button onClick={handleAddTask} disabled={isLoading}>
-          {isLoading ? (
-            <div className="spinner"></div>
-          ) : (
-            <><i className="fas fa-plus"></i> Add Task</>
-          )}
-        </button>
+        <button onClick={handleAddTask} className="add-btn">+ Add Task</button>
       </div>
-
-      {/* List of tasks */}
       <ul className="task-list">
-        {tasks.length === 0 ? (
-          <li>No tasks added yet</li>
-        ) : (
-          tasks.map((t) => (
-            <li key={t.id} className={`task-item ${t.colorClass}`}>
-              {editingTaskId === t.id ? (
-                // Show the input field for editing the task
-                <div className="edit-task-form">
-                  <input
-                    type="text"
-                    value={editedTask}
-                    onChange={(e) => setEditedTask(e.target.value)}
-                  />
-                  <button className="save-edit-btn" onClick={handleSaveEdit}>
-                     Save Task
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <span>{t.text}</span>
-                  <button className="edit-btn" onClick={() => handleEdit(t.id, t.text)}>
-                    <i className="fas fa-edit"></i>
-                  </button>
-                  <button className="delete-btn" onClick={() => handleDelete(t.id)}>
-                    <i className="fas fa-trash-alt"></i>
-                  </button>
-                </>
-              )}
-            </li>
-          ))
-        )}
+        {tasks.map((t) => (
+          <li key={t.id} className={`task-item ${t.colorClass} ${t.completed ? 'completed' : ''}`}>
+            {editingTaskId === t.id ? (
+              <>
+                <input id="tex"
+                  type="text"
+                  value={editedTask}
+                  onChange={(e) => setEditedTask(e.target.value)}
+                />
+                <button onClick={handleSaveEdit} className="save-btn">Save</button>
+              </>
+            ) : (
+              <>
+                <span>{t.text}</span>
+                <button onClick={() => handleComplete(t.id)} className="complete-btn">✔</button>
+                <button onClick={() => handleEdit(t.id, t.text)} className="edit-btn">✎</button>
+                <button onClick={() => handleDelete(t.id)} className="delete-btn">✖</button>
+              </>
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   );
