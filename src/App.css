@@ -2,23 +2,41 @@
   background: linear-gradient(45deg, #FF7E5F, #feb47b);
   color: white;
   border: none;
-  outline:none;
+  outline: none;
   padding: 10px 20px;
   border-radius: 50px;
-  font-size:20px;
+  font-size:25px;
+  font-weight:500;
   cursor: pointer;
   transition: background 0.3s ease;
-  margin-top: 20px;
-  align-self: flex-end;
+  z-index: 999; /* ensures it's on top */
 }
 
+/* Hover effect */
 .logout-btn:hover {
   background: linear-gradient(45deg, #feb47b, #FF7E5F);
 }
-@media (min-width: 768px) {
+
+/* Medium screens (tablets) */
+@media screen and (max-width: 768px) {
   .logout-btn {
-    margin-top: 0;
-    margin-bottom: 20px;
-    align-self: flex-end;
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+  .App > div {
+    top: 15px !important;
+    right: 15px !important;
+  }
+}
+
+/* Small screens (phones) */
+@media screen and (max-width: 480px) {
+  .logout-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  .App > div {
+    top: 10px !important;
+    right: 10px !important;
   }
 }

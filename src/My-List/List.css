@@ -27,34 +27,29 @@ body {
   overflow: hidden;
   position: relative;
   margin-bottom: 40px;
+  color: white;
 }
 
 /* Header Styling */
-.todo-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.todo-header h1 {
+.todo-container h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: white;
-  margin: 0;
+  margin: 0 0 20px 0;
+  text-align: center;
 }
 
-/* Task Form Styling */
+/* Task Form Styling - Always Horizontal */
 .task-form {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   margin-bottom: 25px;
   width: 100%;
+  flex-wrap: wrap; /* allows wrapping on very small screens */
 }
 
 .task-form input {
-  width: 100%;
+  flex-grow: 1;
+  min-width: 220px; /* prevents shrinking too much */
   padding: 15px;
   border: 2px solid #ddd;
   border-radius: 50px;
@@ -62,6 +57,8 @@ body {
   outline: none;
   background-color: #f9f9f9;
   transition: all 0.3s;
+  box-sizing: border-box;
+  color: #333;
 }
 
 .task-form input:focus {
@@ -70,8 +67,8 @@ body {
   background-color: #fff;
 }
 
-/* Task Form Button */
-.task-form button {
+.task-form button,
+.add-btn {
   background: linear-gradient(45deg, #FF7E5F, #feb47b);
   color: white;
   border: none;
@@ -83,35 +80,11 @@ body {
   transition: background 0.3s ease;
   white-space: nowrap;
   flex-shrink: 0;
-  width: fit-content;
-  align-self: center;
 }
 
-.task-form button:hover {
+.task-form button:hover,
+.add-btn:hover {
   background: linear-gradient(45deg, #feb47b, #FF7E5F);
-}
-
-/* Colored Spinner */
-.spinner {
-  border: 5px solid transparent;
-  border-top: 5px solid #FF7E5F;
-  border-right: 5px solid #FEB47B;
-  border-bottom: 5px solid #F39C12;
-  border-left: 5px solid #3498DB;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: auto;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 /* Task List Styling */
@@ -122,17 +95,18 @@ body {
   width: 100%;
 }
 
-/* Task Item Styling */
+/* Task Item Styling - Always Horizontal */
 .task-item {
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 12px 15px;
   margin-bottom: 15px;
   border-radius: 15px;
   background: linear-gradient(135deg, #00aaff, #0077cc);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   overflow-wrap: break-word;
+  flex-wrap: wrap; /* allow buttons to wrap if needed */
 }
 
 .task-item:hover {
@@ -141,10 +115,13 @@ body {
 }
 
 .task-item span {
-  flex: 1;
+  flex-grow: 1;
   font-size: 1rem;
   color: white;
   word-wrap: break-word;
+  min-width: 0; /* fix for flexbox overflow */
+  margin-right: 12px;
+  white-space: normal;
 }
 
 /* Task Colors */
@@ -161,13 +138,14 @@ body {
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 8px;
   padding: 8px 12px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 0.3s, background-color 0.3s ease;
+  flex-shrink: 0;
 }
 
 .complete-btn {
@@ -199,40 +177,43 @@ body {
   background-color: #f5c6cb;
   transform: scale(1.1);
 }
-#tex{
-  width:40%;
-  outline:none;
-  border:none;
-  border-radius:20px;
-  padding:10px;
-  font-size:15px;
-  background:#333;
-  color:white;
 
+/* Edit Input Styling */
+#tex {
+  width: 300px;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 15px;
+  background: #333;
+  color: white;
+  box-sizing: border-box;
+  margin-right: 12px;
+  flex-shrink: 0;
 }
-.save-btn:hover{
-   background: linear-gradient(135deg, #a8e063, #56ab2f);
-}
-.save-btn{
-   background: linear-gradient(45deg, #FF7E5F, #feb47b);
-   border:none;
-   outline:none;
-   padding:10px 10px;
-   font-size: 20px;
-   border-radius:20px;
-   margin:20px;
-   color:white;
-}
-/* Responsive Design */
-@media (min-width: 768px) {
-  .task-form {
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
-  }
 
-  .task-form button {
-    align-self: flex-start;
-    margin-left: 15px;
-  }
+/* Save Button Styling */
+.save-btn {
+  background: linear-gradient(45deg, #FF7E5F, #feb47b);
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 20px;
+  margin-left: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, #a8e063, #56ab2f);
+}
+
+/* Completed Task Styling */
+.task-item.completed span {
+  text-decoration: line-through;
+  opacity: 0.7;
 }
